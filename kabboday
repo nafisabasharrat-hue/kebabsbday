@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday Kabbo 💚</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #0b3d2e, #000000);
+      color: #e6f2ed;
+      text-align: center;
+    }
+
+    .container {
+      padding: 40px 20px;
+      max-width: 850px;
+      margin: auto;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-weight: normal;
+      margin-bottom: 35px;
+      opacity: 0.85;
+    }
+
+    .card {
+      background: rgba(10, 30, 25, 0.92);
+      border-radius: 22px;
+      padding: 32px;
+      margin: 28px 0;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    }
+
+    .heart {
+      font-size: 2rem;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    button {
+      background: #1f7a5c;
+      border: none;
+      color: white;
+      padding: 15px 28px;
+      font-size: 1rem;
+      border-radius: 30px;
+      cursor: pointer;
+      margin-top: 15px;
+    }
+
+    button:hover {
+      background: #145a43;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .letter {
+      text-align: left;
+      line-height: 1.9;
+      margin-top: 20px;
+    }
+
+    footer {
+      margin-top: 45px;
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    iframe {
+      display: none;
+    }
+
+    /* OVERLAY */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      cursor: pointer;
+    }
+
+    .overlay-content {
+      text-align: center;
+      animation: fadeIn 1.5s ease;
+    }
+
+    .overlay-content h1 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+
+    .overlay-content p {
+      opacity: 0.85;
+      font-size: 1.1rem;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Tap to Begin Overlay -->
+  <div class="overlay" onclick="startExperience()">
+    <div class="overlay-content">
+      <h1><!-- EDIT THIS (optional greeting) --></h1>
+      <p>Tap to begin</p>
+    </div>
+  </div>
+
+  <!-- Background Music -->
+  <iframe
+    id="music"
+    src="https://www.youtube.com/embed/3XqqkrJENB4?autoplay=1&loop=1&playlist=3XqqkrJENB4"
+    allow="autoplay"
+  ></iframe>
+
+  <div class="container">
+
+    <h1>Happy Birthday, Kabbo 🎉</h1>
+    <h2><!-- EDIT THIS SUBTITLE --></h2>
+
+    <!-- INTRO CARD -->
+    <div class="card">
+      <p class="heart">💚</p>
+      <p>
+        <!-- WRITE YOUR OPENING MESSAGE HERE -->
+      </p>
+    </div>
+
+    <!-- WHY I LOVE YOU -->
+    <div class="card">
+      <h3><!-- EDIT SECTION TITLE --></h3>
+      <p><!-- WRITE POINT 1 --></p>
+      <p><!-- WRITE POINT 2 --></p>
+      <p><!-- WRITE POINT 3 --></p>
+    </div>
+
+    <!-- LETTER SECTION -->
+    <div class="card">
+      <h3>My Letter to You 💌</h3>
+
+      <div class="letter">
+        <p>Dear Kabbo,</p>
+
+        <p><!-- WRITE YOUR LETTER HERE --></p>
+
+        <p><!-- CONTINUE YOUR LETTER HERE --></p>
+
+        <p>
+          Love,<br>
+          <!-- YOUR SIGN-OFF -->
+        </p>
+      </div>
+    </div>
+
+    <!-- SURPRISE -->
+    <div class="card">
+      <h3><!-- EDIT SURPRISE TITLE --></h3>
+      <button onclick="showSurprise()">Click Me</button>
+      <p id="surprise" class="hidden">
+        <!-- WRITE YOUR HIDDEN MESSAGE -->
+      </p>
+    </div>
+
+    <footer>
+      <!-- EDIT FOOTER TEXT -->
+    </footer>
+
+  </div>
+
+  <script>
+    function startExperience() {
+      document.querySelector('.overlay').style.display = 'none';
+      document.getElementById('music').src += '';
+    }
+
+    function showSurprise() {
+      document.getElementById("surprise").classList.remove("hidden");
+    }
+  </script>
+
+</body>
+</html>
