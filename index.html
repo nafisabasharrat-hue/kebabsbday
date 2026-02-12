@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Restricted Access</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Caveat:wght@500&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #fff0f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.floating-hearts span {
+  position: fixed;
+  bottom: -20px;
+  font-size: 18px;
+  animation: floatUp 8s linear infinite;
+  opacity: 0.4;
+}
+
+@keyframes floatUp {
+  from { transform: translateY(0); opacity: 0.4; }
+  to { transform: translateY(-110vh); opacity: 0; }
+}
+
+.container {
+  width: 90%;
+  max-width: 600px;
+  background: white;
+  padding: 25px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+h1 { font-weight: 600; }
+
+.progress-text {
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.progress-bar {
+  width: 100%;
+  background: #f3d9e5;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.progress {
+  height: 20px;
+  width: 0%;
+  background: linear-gradient(90deg, #ff4d88, #ff99bb);
+  transition: width 0.5s ease;
+}
+
+.heart-meter {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
+input {
+  padding: 12px;
+  width: 85%;
+  margin-top: 10px;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  font-family: 'Poppins', sans-serif;
+}
+
+button {
+  padding: 10px 18px;
+  margin-top: 12px;
+  border-radius: 12px;
+  border: none;
+  background: #ff4d88;
+  color: white;
+  cursor: pointer;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+}
+
+button:hover { background: #e6005c; }
+
+.message {
+  margin-top: 10px;
+  color: #cc0066;
+  font-weight: 500;
+}
+
+.popup {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #ff4d88;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 12px;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.letter {
+  display: none;
+  margin-top: 25px;
+  font-family: 'Caveat', cursive;
+  font-size: 26px;
+  line-height: 1.8;
+  text-align: left;
+  padding: 20px;
+  background: #fffdf7;
+  border-radius: 15px;
+  box-shadow: inset 0 0 15px rgba(0,0,0,0.05);
+  animation: fadeIn 2s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+
+<body>
+
+<div class="floating-hearts" id="hearts"></div>
+
+<div class="container">
+<h1>🚫 Restricted Access</h1>
+<p>Only one emotionally questionable male may proceed.</p>
+<button onclick="startGame()">I am him.</button>
+
+<div class="progress-text" id="progressText">Boyfriend Verification: 0%</div>
+<div class="progress-bar">
+  <div class="progress" id="progress"></div>
+</div>
+
+<div class="heart-meter" id="heartMeter">🤍🤍🤍🤍🤍🤍🤍🤍🤍🤍</div>
+
+<div id="questions"></div>
+
+<div class="letter" id="letter">
+<h2>ACCESS GRANTED 💘</h2>
+<p>
+PASTE YOUR LETTER HERE<br><br>
+(Remember to use &lt;br&gt; for line breaks.)
+</p>
+</div>
+
+</div>
+
+<div class="popup" id="popup">Achievement Unlocked 💖</div>
+
+<script>
+const questions = [
+{q:"What's my comfort food?",a:["pasta"],wrong:"seriously kabbo?"},
+{q:"What's my fave flower?",a:["carnation"],wrong:"uh good luck if you can't do this"},
+{q:"What's one word I say a lot?",a:["oshanti"],wrong:"this one is tough"},
+{q:"What's my fave movie?",a:["steel troops"],wrong:"Do better prince charming,"},
+{q:"What do I do when I'm upset?",a:["stop talking"],wrong:"Hint: talkative"},
+{q:"What's my middle name?",a:["basharrat"],wrong:"Disappointing tsk tsk tsk"},
+{q:"If I miss you 24 hours a day and my heart runs 2.5 km per hour, how many kilometers daily?",a:["60","60km","60 km"],wrong:"use your calculations"},
+{q:"What's one adoring name I call you the most?",a:["my baby"],wrong:"tough luck"},
+{q:"What's my most used cuss word?",a:["the fuck"],wrong:"the fuck?"},
+{q:"I'm earthy, soft and hard. Some like me some don't. I come in different shapes and sizes what am I?",a:["alu"],wrong:"you're so close to the end"}
+];
+
+let current=0;
+
+function normalize(str){return str.toLowerCase().trim();}
+
+function startGame(){
+document.querySelector("button").style.display="none";
+showQuestion();
+}
+
+function showQuestion(){
+if(current>=questions.length){
+launchConfetti();
+document.getElementById("letter").style.display="block";
+return;
+}
+
+document.getElementById("questions").innerHTML=`
+<p>${questions[current].q}</p>
+<input type="text" id="answer">
+<br>
+<button onclick="checkAnswer()">Submit</button>
+<div class="message" id="message"></div>
+`;
+}
+
+function checkAnswer(){
+let user=normalize(document.getElementById("answer").value);
+let correct=questions[current].a.map(a=>normalize(a));
+
+if(correct.includes(user)){
+current++;
+updateProgress();
+showPopup();
+showQuestion();
+}else{
+document.getElementById("message").innerHTML=
+`${questions[current].wrong}<br><button onclick="retry()">Retry</button>`;
+}
+}
+
+function retry(){
+document.getElementById("message").innerHTML="";
+document.getElementById("answer").value="";
+}
+
+function updateProgress(){
+let percent=current*10;
+document.getElementById("progress").style.width=percent+"%";
+document.getElementById("progressText").innerText="Boyfriend Verification: "+percent+"%";
+updateHearts(percent);
+}
+
+function updateHearts(percent){
+let filled=percent/10;
+let hearts="";
+for(let i=0;i<filled;i++) hearts+="❤️";
+for(let i=filled;i<10;i++) hearts+="🤍";
+document.getElementById("heartMeter").innerText=hearts;
+}
+
+function showPopup(){
+let popup=document.getElementById("popup");
+popup.style.opacity=1;
+setTimeout(()=>{popup.style.opacity=0;},1000);
+}
+
+function launchConfetti(){
+for(let i=0;i<80;i++){
+let conf=document.createElement("div");
+conf.innerHTML="💖";
+conf.style.position="fixed";
+conf.style.left=Math.random()*100+"vw";
+conf.style.top="-10px";
+conf.style.fontSize="20px";
+conf.style.animation="floatUp 4s linear forwards";
+document.body.appendChild(conf);
+setTimeout(()=>conf.remove(),4000);
+}
+}
+
+function createHearts(){
+for(let i=0;i<15;i++){
+let heart=document.createElement("span");
+heart.innerHTML="♡";
+heart.style.left=Math.random()*100+"vw";
+heart.style.animationDuration=(5+Math.random()*5)+"s";
+document.getElementById("hearts").appendChild(heart);
+}
+}
+createHearts();
+</script>
+
+</body>
+</html>
